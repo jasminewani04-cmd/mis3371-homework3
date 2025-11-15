@@ -1,8 +1,8 @@
 /*
  Program Name: patient-form.html
  Name: Jasmine Wani
- Date Created: 2025-10-22
- Date Modified: 2025-10-22
+ Date Created: 2025-11-13
+ Date Modified: 2025-11-14
  Version: 1.0
  Description: MIS 3371 Homework 3 Patient Form
 */
@@ -123,11 +123,13 @@ function validateSsn() {
 
 // zip code validation
 function validateZip() {
-    const zipInput = document.getElementById("zcode");
+    // match the HTML input id (id="zip") and the error span id (id="zip-error")
+    const zipInput = document.getElementById("zip");
+    if (!zipInput) return false;
     let zip = zipInput.value.replace(/[^\d-]/g, "");
 
     if (!zip) {
-        document.getElementById("zcode-error").innerHTML = 
+        document.getElementById("zip-error").innerHTML = 
         "Zip code can't be blank";
         return false;
     }
@@ -139,7 +141,7 @@ function validateZip() {
     }
 
     zipInput.value = zip;
-    document.getElementById("zcode-error").innerHTML = "";
+    document.getElementById("zip-error").innerHTML = "";
     return true;
 }
 
@@ -335,6 +337,20 @@ function reviewInput() {
 function removeReview() {
     document.getElementById("showInput").innerHTML = "";
 }
+// city validation (simple)
+function validateCity() {
+    const city = document.getElementById("city");
+    if (!city) return true; // nothing to validate
+    const val = city.value.trim();
+    if (val.length < 2) {
+        const span = document.getElementById("city-error");
+        if (span) span.innerHTML = "Please enter a valid city";
+        return false;
+    }
+    const span = document.getElementById("city-error");
+    if (span) span.innerHTML = "";
+    return true;
+}
 //alert box
 function showAlert() {
     var alertBox = document.getElementById("alert-box");
@@ -371,7 +387,7 @@ function validateEverything() {
     if (!validateCity()) {
         valid = false;
     }
-    if (!validateZcode()) {
+    if (!validateZip()) {
         valid = false;
     }
     if (!validateEmail()) {
